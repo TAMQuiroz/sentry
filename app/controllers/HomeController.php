@@ -20,4 +20,24 @@ class HomeController extends BaseController {
 		return View::make('hello');
 	}
 
+	public function home()
+    {
+        $data = array();
+
+        if(Auth::check())
+        {
+            $user = Auth::user();
+            $data = array(
+                'account' => $user->account
+            );
+        }
+
+        return View::make('login');
+    }
+
+
+    public function signUp()
+    {
+    	return View::make('signUp');
+    }
 }
