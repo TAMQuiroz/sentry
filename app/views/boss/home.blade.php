@@ -29,7 +29,7 @@
       	@if($data)
 	      	@foreach($data as $d)
 	      	<tr>
-	          <td>{{$d["name"]}}</td>
+	          <td><a href="{{route('home')}}/boss/requirement/{{$d["formID"]}}"> {{$d["name"]}} </a></td>
 	          <td>{{$d["lastName"]}}</td>
 	          <td>{{$d["date"]}}</td>
 	          <td>
