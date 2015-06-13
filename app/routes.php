@@ -42,11 +42,17 @@ Route::get('/business_partner/home', array('as' => 'business_partner.home', 'use
 Route::post('/business_partner/home', array('as' => 'business_partner.home.post', 'uses' => 'BusinessPartnerController@homePost'));
 Route::get('/business_partner/new_requirement', array('as' => 'business_partner.requirement.new', 'uses' => 'BusinessPartnerController@newRequirement'));
 Route::post('/business_partner/new_requirement', array('as' => 'business_partner.requirement.new.post', 'uses' => 'BusinessPartnerController@newRequirementPost'));
-Route::get('/business_partner/save_requirement', array('as' => 'business_partner.requirement.save', 'uses' => 'BusinessPartnerController@saveRequirement'));
 Route::post('/business_partner/modify_requirement', array('as' => 'business_partner.requirement.modify', 'uses' => 'BusinessPartnerController@modifyRequirement'));
 Route::post('/business_partner/send_requirement', array('as' => 'business_partner.requirement.send', 'uses' => 'BusinessPartnerController@sendRequirement'));
-
+Route::get('/business_partner/resume_requirement/{formId}', array('as' => 'business_partner.requirement.resume', 'uses' => 'BusinessPartnerController@resumeRequirement'));
+Route::post('/business_partner/search', array('as' => 'business_partner.home.search', 'uses' => 'BusinessPartnerController@search'));
 
 Route::get('/boss/home', array('as' => 'boss.home', 'uses' => 'BossController@home'));
 Route::post('/boss/home', array('as' => 'boss.home.post', 'uses' => 'BossController@homePost'));
+
+Route::get('/enabler/home', array('as' => 'enabler.home', 'uses' => 'EnablerController@home'));
+
+Route::get('/colaborator/infra/home', array('as' => 'colaborator.infra.home', 'uses' => 'ColaboratorInfraController@home'));
+
+Route::get('/colaborator/admin/home', array('as' => 'colaborator.admin.home', 'uses' => 'ColaboratorAdminController@home'));
 		

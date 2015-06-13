@@ -34,11 +34,20 @@ class AuthController extends \BaseController {
         	{
         		return Redirect::to('/boss/home');
         	}
-            elseif ($role == Config::get('constants.HEAD_ADMIN'))
+            elseif ($role == Config::get('constants.COLABORATOR_INFRA'))
             {
-                return Redirect::to('/admin/home');
+                return Redirect::to('/colaborator/infra/home');
             }
-            return Redirect::to('/');
+            elseif ($role == Config::get('constants.COLABORATOR_ADMIN')) 
+            {
+                return Redirect::to('/colaborator/admin/home');
+            }
+            elseif ($role == Config::get('constants.ENABLER'))
+            {
+                return Redirect::to('/enabler/home');
+            }
+            else
+                return Redirect::to('/');
         }
         
         return Redirect::to('/')->with('error','Invalid email or password');

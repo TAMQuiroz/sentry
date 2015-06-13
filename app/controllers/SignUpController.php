@@ -20,6 +20,6 @@ class SignupController extends \BaseController {
         $user->role_id  = $attributes['role'];
         $user->save();
 
-        return Redirect::to('/business_partner/home');
+        return Redirect::to('/');
     }
 }

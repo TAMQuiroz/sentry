@@ -18,6 +18,16 @@
 		<a href="{{route('business_partner.requirement.new')}}">Añadir nuevo requerimiento</a>
 	</div>
 
+	{{Form::open(array('route' => 'business_partner.home.search'))}}
+	<div class="row">
+	<select name="filter">
+		<option value="0" selected>Borrador</option>
+		<option value="1">Enviado</option>
+		<option value="2">Terminado</option>
+	</select>
+	{{Form::submit('Buscar', array('class' => 'btn btn-default'))}}
+	{{Form::close()}}
+
 	<table class="table table-hover">
       <caption>Requerimientos llenados recientemente:</caption>
       <thead>
@@ -33,7 +43,7 @@
       	@if($data)
 	      	@foreach($data as $d)
 	      	<tr>
-	      	  <th scope="row">{{$d["formID"]}}</th>
+	      	  <th scope="row"><a href="{{route('home')}}/business_partner/resume_requirement/{{$d["formID"]}}">{{$d["formID"]}}</a></th>
 	          <td>{{$d["name"]}}</td>
 	          <td>{{$d["lastName"]}}</td>
 	          <td>{{$d["date"]}}</td>

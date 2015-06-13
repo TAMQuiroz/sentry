@@ -15,4 +15,33 @@
 
 		</div>
 	</div>
+	<table class="table table-hover">
+      <caption>Requerimientos recibidos recientemente:</caption>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Fecha de registro</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+      	@if($data)
+	      	@foreach($data as $d)
+	      	<tr>
+	          <td>{{$d["name"]}}</td>
+	          <td>{{$d["lastName"]}}</td>
+	          <td>{{$d["date"]}}</td>
+	          <td>
+	          @if($d["statusEnd"] == 0)
+	          	Abierto
+	          @elseif($d["statusEnd"] == 1)
+	          	Cerrado
+	          @endif
+	          </td>
+	        </tr>
+	      	@endforeach
+	      @endif
+      </tbody>
+    </table>
 @stop

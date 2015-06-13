@@ -26,7 +26,10 @@
 			</div>
 			{{ Form::select('role', [
 			   '1' => 'Business Partner',
-			   '2' => 'Jefe'],
+			   '2' => 'Jefe',
+			   '3' => 'Colaborador Infraestructura',
+			   '4' => 'Colaborador Administrativo',
+			   '5' => 'Autorizador'],
 			   null,
 			   ['class'=>'form-control']
 			) }}

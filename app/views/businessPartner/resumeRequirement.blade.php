@@ -14,8 +14,22 @@
 		  </div>
 		</div>
 	</div>
+	@if(Session::has('error'))
+		{{Session::get('error')}}
+	@endif
 	<div class="row">
 		<div class="panel panel-default col-md-12 ">
+			<div class="panel panel-default">
+				<div class="panel-heading">Empleado</div>
+				<div class="panel-body">
+					{{$employee->name}} {{$employee->lastname}}
+				</div>
+
+				<div class="panel-heading">Jefe</div>
+				<div class="panel-body">
+					{{$boss->name}} {{$boss->lastname}}
+				</div>
+			</div>
 			<div class="panel-body">
 		  		Equipo:
 		  		@if($form->equipo==0)
@@ -39,6 +53,40 @@
 			<div class="panel-body">
 				Area: {{$area->name}}
 			</div>
+
+			<div class="panel-body">
+				SAP - R/3 / Indicar perfil identico o similar a:
+				<div>
+					Usuario: {{$sapR3->name}}
+					<div>
+						Justificacion 
+					  	<textarea name="sapR3Just" disabled>{{$form->sapR3Just}}</textarea>
+				  	</div>
+				</div>
+			</div>
+
+			<div class="panel-body">
+				SAP - Demanda/Planificacion / Indicar perfil identico o similar a:
+				<div>
+					Usuario: {{$sapDP->name}}
+					<div>
+						Justificacion 	  	
+					  	<textarea name="sapDPJust" disabled>{{$form->sapDPJust}}</textarea>
+				  	</div>
+				</div>
+			</div>
+
+			<div class="panel-body">
+				SAP - BW / Indicar perfil identico o similar a:
+				<div>
+					Usuario: {{$sapBW->name}}
+					<div>
+						Justificacion 
+					  	<textarea name="sapBWJust" disabled>{{$form->sapBWJust}}</textarea>
+				  	</div>
+				</div>
+			</div>
+
 
 			<div class="panel-body">
 				Cuenta de correo / Nombre que usa: 
@@ -140,18 +188,19 @@
 	</div>
 		
 	<div class="row">
-
-		{{Form::open(array('route' => 'business_partner.requirement.modify'))}}
-			{{Form::hidden('formId',$form->id)}}
+		@if($form->status != 1)
+		{{Form::open(array('route' => 'business_partner.requirement.new','method'=>'GET'))}}
+			{{Form::hidden('formId', $form->id)}}
 			{{Form::submit('Modificar', array('class' => 'btn btn-default'))}}
 		{{Form::close()}}		
 
-		{{Form::open(array('url' => 'business_partner.requirement.send'))}}
-			{{Form::hidden('formId',$form->id)}}
+		{{Form::open(array('route' => 'business_partner.requirement.send'))}}
+			{{Form::hidden('formId', $form->id)}}
 			{{Form::submit('Terminar', array('class' => 'btn btn-default'))}}
-			
 		{{Form::close()}}		
-		
+		@else
+		<a href="{{route("home")}}"><button>Regresar</button></a>
+		@endif
 		
 	</div>
 @stop
