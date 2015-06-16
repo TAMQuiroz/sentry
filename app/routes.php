@@ -65,6 +65,7 @@ Route::get('/boss/requirement/{formId}', array('as' => 'boss.requirement', 'uses
 
 
 Route::get('/enabler/home', array('as' => 'enabler.home', 'uses' => 'EnablerController@home'));
+Route::get('/enabler/requirement/{formId}', array('as' => 'enabler.requirement', 'uses' => 'EnablerController@showReqs'));
 
 Route::get('/colaborator/infra/home', array('as' => 'colaborator.infra.home', 'uses' => 'ColaboratorInfraController@home'));
 
