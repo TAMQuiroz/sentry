@@ -49,7 +49,9 @@
       			{{$users[$requirement['role']]['name']}}
       		</td>
       		<td>
-            <a href="mailto:{{$users[$requirement['role']]['email']}}?Subject=Aviso%20sobre%20Requerimiento">CORREO</a>
+            <a href="mailto:{{$users[$requirement['role']]['email']}}?Subject=Aviso%20sobre%20Requerimiento">
+              <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+            </a>
           </td>
       	</tr>
       	@endforeach

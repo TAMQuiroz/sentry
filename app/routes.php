@@ -62,6 +62,7 @@ Route::post('/business_partner/search', array('as' => 'business_partner.home.sea
 Route::get('/boss/home', array('as' => 'boss.home', 'uses' => 'BossController@home'));
 Route::post('/boss/home', array('as' => 'boss.home.post', 'uses' => 'BossController@homePost'));
 Route::get('/boss/requirement/{formId}', array('as' => 'boss.requirement', 'uses' => 'BossController@requirement'));
+Route::post('/boss/search', array('as' => 'boss.home.search', 'uses' => 'BossController@search'));
 
 
 Route::get('/enabler/home', array('as' => 'enabler.home', 'uses' => 'EnablerController@home'));

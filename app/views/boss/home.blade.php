@@ -12,9 +12,16 @@
 		  <div class="panel-body">
 		  	<h1>BOSS HOME</h1>
 		  </div>
-
 		</div>
 	</div>
+	{{Form::open(array('route' => 'boss.home.search'))}}
+	<div class="row">
+	<select name="filter">
+		<option value="0" selected>Abierto</option>
+		<option value="1">Cerrado</option>
+	</select>
+	{{Form::submit('Buscar', array('class' => 'btn btn-default'))}}
+	{{Form::close()}}
 	<table class="table table-hover">
       <caption>Requerimientos recibidos recientemente:</caption>
       <thead>

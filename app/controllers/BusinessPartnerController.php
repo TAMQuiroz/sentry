@@ -247,6 +247,26 @@ class BusinessPartnerController extends \BaseController {
         $requirement->SAPType = $form->sapBW;
         $requirement->save();
 
+        $requirement = new Requirement;
+        $requirement->limitDate = Date('y:m:d', strtotime("+".$tiempo1->duracionEstimada." days"));
+        $requirement->registerDate = Date('y:m:d');
+        $requirement->status = 0;
+        $requirement->employeeID = $form->employeeID;
+        $requirement->role = Config::get('constants.COLABORATOR_INFRA');
+        $requirement->formID = $form->id;
+        $requirement->name = "Ingresar informacion de ubicacion";
+        $requirement->save();
+
+        $requirement = new Requirement;
+        $requirement->limitDate = Date('y:m:d', strtotime("+".$tiempo1->duracionEstimada." days"));
+        $requirement->registerDate = Date('y:m:d');
+        $requirement->status = 0;
+        $requirement->employeeID = $form->employeeID;
+        $requirement->role = Config::get('constants.COLABORATOR_INFRA');
+        $requirement->formID = $form->id;
+        $requirement->name = "Enviar correo electronico a Colaborador";
+        $requirement->save();
+
     	if($form->equipo != 0){
     		$requirement = new Requirement;
     		$requirement->limitDate = Date('y:m:d', strtotime("+".$tiempo1->duracionEstimada." days"));
@@ -388,7 +408,7 @@ class BusinessPartnerController extends \BaseController {
     	$input = Input::all();
 
 
-		$forms = DB::table('form')->where('status', $input['filter'])->get();
+		$forms = Forms::where('status', $input['filter'])->get();
 
         $dataParent = array();
 

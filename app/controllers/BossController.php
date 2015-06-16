@@ -63,4 +63,37 @@ class BossController extends \BaseController {
     	
     	return View::make('boss.requirement', $data);
     }
+
+    public function search()
+    {
+    	$input = Input::all();
+
+		$forms = Forms::where('status', 1)->where('statusEnd', $input['filter'])->get();
+
+        $dataParent = array();
+
+        if($forms)
+        {
+        	foreach ($forms as $form) {
+        		$employee = Employee::where('id', $form->employeeID)->first();
+        		$dataChild = array(
+	        	'name'		=>	$employee->name,
+	        	'lastName'	=>	$employee->lastname,
+	        	'formID'	=>	$form->id,
+	        	'date'		=>	$form->updated_at,
+	        	'status'	=>	$form->status,
+	        	'statusEnd'	=>	$form->statusEnd
+	        	);
+	        	array_push($dataParent,$dataChild);
+        	}
+	        
+
+			$data = array ('data' => $dataParent);
+		}
+		else
+		{
+			$data = array ('data' => null);
+		}
+        return View::make('boss.home', $data);
+    }
 }
