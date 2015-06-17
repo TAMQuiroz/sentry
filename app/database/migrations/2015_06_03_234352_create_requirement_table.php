@@ -24,6 +24,8 @@ class CreateRequirementTable extends Migration {
 			$table->integer('employeeID');
 			$table->integer('role');
 			$table->integer('formID');
+			$table->integer('goodCheck')->nullable();
+			$table->integer('SAPType')->nullable();
 
 			$table->timestamps();
 			$table->softDeletes();

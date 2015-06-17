@@ -6,14 +6,14 @@ class BusinessPartnerController extends \BaseController {
     {
 	        $user = Auth::user();
 
-			$forms = DB::table('form')->where('status', 0)->get();
+			$forms = Forms::where('status', 0)->get();
 
 	        $dataParent = array();
 
 	        if($forms)
 	        {
 	        	foreach ($forms as $form) {
-	        		$employee = DB::table('employees')->where('id', $form->employeeID)->first();
+	        		$employee = Employee::where('id', $form->employeeID)->first();
 	        		$dataChild = array(
 		        	'name'		=>	$employee->name,
 		        	'lastName'	=>	$employee->lastname,
@@ -207,6 +207,65 @@ class BusinessPartnerController extends \BaseController {
 
     	$tiempo1 = Tasktype::where('id',1)->first();
     	$tiempo2 = Tasktype::where('id',2)->first();
+            
+        $requirement = new Requirement;
+        $requirement->limitDate = Date('y:m:d', strtotime("+".$tiempo1->duracionEstimada." days"));
+        $requirement->registerDate = Date('y:m:d');
+        $requirement->status = 0;
+        $requirement->employeeID = $form->employeeID;
+        $requirement->role = Config::get('constants.ENABLER');
+        $requirement->formID = $form->id;
+        $requirement->name = "Conseguir permiso SAP R3";
+        $requirement->description = $form->sapR3Just;
+        $requirement->goodCheck = 0;
+        $requirement->SAPType = $form->sapR3;
+        $requirement->save();
+
+        $requirement = new Requirement;
+        $requirement->limitDate = Date('y:m:d', strtotime("+".$tiempo1->duracionEstimada." days"));
+        $requirement->registerDate = Date('y:m:d');
+        $requirement->status = 0;
+        $requirement->employeeID = $form->employeeID;
+        $requirement->role = Config::get('constants.ENABLER');
+        $requirement->formID = $form->id;
+        $requirement->name = "Conseguir permiso SAP DP";
+        $requirement->description = $form->sapDPJust;
+        $requirement->goodCheck = 0;
+        $requirement->SAPType = $form->sapDP;
+        $requirement->save();
+
+        $requirement = new Requirement;
+        $requirement->limitDate = Date('y:m:d', strtotime("+".$tiempo1->duracionEstimada." days"));
+        $requirement->registerDate = Date('y:m:d');
+        $requirement->status = 0;
+        $requirement->employeeID = $form->employeeID;
+        $requirement->role = Config::get('constants.ENABLER');
+        $requirement->formID = $form->id;
+        $requirement->name = "Conseguir permiso SAP BW";
+        $requirement->description = $form->sapBWJust;
+        $requirement->goodCheck = 0;
+        $requirement->SAPType = $form->sapBW;
+        $requirement->save();
+
+        $requirement = new Requirement;
+        $requirement->limitDate = Date('y:m:d', strtotime("+".$tiempo1->duracionEstimada." days"));
+        $requirement->registerDate = Date('y:m:d');
+        $requirement->status = 0;
+        $requirement->employeeID = $form->employeeID;
+        $requirement->role = Config::get('constants.COLABORATOR_INFRA');
+        $requirement->formID = $form->id;
+        $requirement->name = "Ingresar informacion de ubicacion";
+        $requirement->save();
+
+        $requirement = new Requirement;
+        $requirement->limitDate = Date('y:m:d', strtotime("+".$tiempo1->duracionEstimada." days"));
+        $requirement->registerDate = Date('y:m:d');
+        $requirement->status = 0;
+        $requirement->employeeID = $form->employeeID;
+        $requirement->role = Config::get('constants.COLABORATOR_INFRA');
+        $requirement->formID = $form->id;
+        $requirement->name = "Enviar correo electronico a Colaborador";
+        $requirement->save();
 
     	if($form->equipo != 0){
     		$requirement = new Requirement;
@@ -214,6 +273,7 @@ class BusinessPartnerController extends \BaseController {
     		$requirement->registerDate = Date('y:m:d');
     		$requirement->status = 0;
     		$requirement->employeeID = $form->employeeID;
+            $requirement->role = Config::get('constants.COLABORATOR_ADMIN');
     		$requirement->formID = $form->id;
     		if($form->equipo == 1){
 	    		$requirement->name = "Conseguir Laptop";
@@ -235,6 +295,7 @@ class BusinessPartnerController extends \BaseController {
     		$requirement->formID = $form->id;
     		$requirement->name = "Habilitar punto de red";
     		$requirement->description = "Habilitar punto de red para el nuevo empleado";
+            $requirement->role = Config::get('constants.COLABORATOR_ADMIN');
     		$requirement->save();
     	}
 
@@ -247,6 +308,7 @@ class BusinessPartnerController extends \BaseController {
     		$requirement->formID = $form->id;
     		$requirement->name = "Acceder a internet";
     		$requirement->description = "Habilitar el internet para el nuevo empleado";
+            $requirement->role = Config::get('constants.COLABORATOR_ADMIN');
     		$requirement->save();
     	}
 
@@ -259,6 +321,7 @@ class BusinessPartnerController extends \BaseController {
     		$requirement->formID = $form->id;
     		$requirement->name = "Acceder a carpetas";
     		$requirement->description = "Acceso a carpetas en unidades P y L";
+            $requirement->role = Config::get('constants.COLABORATOR_ADMIN');
     		$requirement->save();
     	}
     	
@@ -271,6 +334,7 @@ class BusinessPartnerController extends \BaseController {
     		$requirement->formID = $form->id;
     		$requirement->name = "Conexion a impresora";
     		$requirement->description = "Control sobre uso de computadora";
+            $requirement->role = Config::get('constants.COLABORATOR_ADMIN');
     		$requirement->save();
     	}
 
@@ -283,6 +347,7 @@ class BusinessPartnerController extends \BaseController {
     		$requirement->formID = $form->id;
     		$requirement->name = "Incluir en Directorio";
     		$requirement->description = "Incluir a la persona en el directorio";
+            $requirement->role = Config::get('constants.COLABORATOR_ADMIN');
     		$requirement->save();
     	}
 
@@ -295,6 +360,7 @@ class BusinessPartnerController extends \BaseController {
     		$requirement->formID = $form->id;
     		$requirement->name = "LYNC";
     		$requirement->description = "Movimientos de LYNC";
+            $requirement->role = Config::get('constants.COLABORATOR_ADMIN');
     		$requirement->save();
     	}
 
@@ -307,6 +373,7 @@ class BusinessPartnerController extends \BaseController {
     		$requirement->formID = $form->id;
     		$requirement->name = "Conseguir RPM";
     		$requirement->description = "Conseguir RPM para el nuevo empleado";
+            $requirement->role = Config::get('constants.COLABORATOR_ADMIN');
     		$requirement->save();
     	}
 
@@ -319,6 +386,7 @@ class BusinessPartnerController extends \BaseController {
     		$requirement->formID = $form->id;
     		$requirement->name = "Conseguir anexo";
     		$requirement->description = "Conseguir anexo para el nuevo empleado";
+            $requirement->role = Config::get('constants.COLABORATOR_ADMIN');
     		$requirement->save();
     	}
 
@@ -331,6 +399,7 @@ class BusinessPartnerController extends \BaseController {
     		$requirement->formID = $form->id;
     		$requirement->name = "Conseguir plaza de carro";
     		$requirement->description = "Conseguir plaza de carro para el nuevo empleado";
+            $requirement->role = Config::get('constants.COLABORATOR_ADMIN');
     		$requirement->save();
     	}
     }
@@ -339,7 +408,7 @@ class BusinessPartnerController extends \BaseController {
     	$input = Input::all();
 
 
-		$forms = DB::table('form')->where('status', $input['filter'])->get();
+		$forms = Forms::where('status', $input['filter'])->get();
 
         $dataParent = array();
 
