@@ -69,6 +69,8 @@ Route::get('/enabler/home', array('as' => 'enabler.home', 'uses' => 'EnablerCont
 Route::get('/enabler/requirement/{formId}', array('as' => 'enabler.requirement', 'uses' => 'EnablerController@showReqs'));
 
 Route::get('/colaborator/infra/home', array('as' => 'colaborator.infra.home', 'uses' => 'ColaboratorInfraController@home'));
+Route::post('/colaborator/infra/home', array('as' => 'colaborator.infra.home.post', 'uses' => 'ColaboratorInfraController@updateReqs'));
+Route::post('/colaborator/infra/search', array('as' => 'colaborator.home.search', 'uses' => 'ColaboratorInfraController@search'));
 
 Route::get('/colaborator/admin/home', array('as' => 'colaborator.admin.home', 'uses' => 'ColaboratorAdminController@home'));
 		

@@ -15,25 +15,27 @@
 		  </div>
 		</div>
 	</div>
-	
 	{{--<div>
 		<a href="{{route('business_partner.requirement.new')}}">Añadir nuevo requerimiento</a>
 	</div>--}}
 
 	{{-- FILTRO --}}
-	{{Form::open(array('route' => 'business_partner.home.search'))}}
+	{{Form::open(array('route' => 'colaborator.home.search'))}}
+
 	<div class="row">
-	<select name="filter">
-		<option value="0" selected>Recibido</option>
-		<option value="1">En proceso</option>
-		<option value="2">Llenado</option>
-		<option value="3">Vencido</option>
-		<option value="4"Anulado</option>
-	</select>
+		<select name="filter">
+			<option value="0" selected>Recibido</option>
+			<option value="1">En proceso</option>
+			<option value="2">Llenado</option>
+			<option value="3">Vencido</option>
+			<option value="4">Anulado</option>
+		</select>
+	</div>
 	{{Form::submit('Buscar', array('class' => 'btn btn-default'))}}
 	{{Form::close()}}
 
-
+	{{Form::open()}}
+	{{Form::submit('Guardar')}}
 	{{-- TABLA --}}
 	<table class="table table-hover">
       <caption>Requerimientos llenados recientemente:</caption>
@@ -41,32 +43,41 @@
         <tr>
           <th>ID</th>
           <th>Requerimiento
-          <th>Posición</th>
+          {{--<th>Posición</th>--}}
           <th>Fecha de vencimiento</th>
-          <th>Estado</th>
+          <th>Estado actual</th>
+          <th>Estado nuevo</th>
         </tr>
       </thead>
       <tbody>
-      	{{--@if($data)
-	      	@foreach($data as $d)
-	      	<tr>
-	      	  <th scope="row"><a href="{{route('home')}}/business_partner/resume_requirement/{{$d["formID"]}}">{{$d["formID"]}}</a></th>
-	          <td>{{$d["name"]}}</td>
-	          <td>{{$d["lastName"]}}</td>
-	          <td>{{$d["date"]}}</td>
-	          <td>
-	          @if($d["status"] == 0 && $d["statusEnd"] == 0)
-	          	Borrador
-	          @elseif($d["status"] == 1 && $d["statusEnd"] == 0)
-	          	Enviado
-	          @elseif($d["status"] == 1 && $d["statusEnd"] == 1)
-	          	Terminado
-	          @endif
-	          </td>
-	        </tr>
-	      	@endforeach
-	      @endif--}}
+      	
+      	@foreach($reqs as $req)
+      	<tr>
+      		<td>{{$req->id}}</td>
+      		<td>{{$req->name}}</td>
+      		<td>{{$req->limitDate}}</td>
+      		<td>
+      			@if($req->status == 0)
+      				Recibido
+      			@elseif($req->status == 1)
+      				En proceso
+      			@elseif($req->status == 2)
+      				Llenado
+      			@endif
+      		</td>
+      		<td>
+      			<select name="{{$req->id}}">	
+      				<option value="0" selected>Recibido</option>
+					<option value="1">En proceso</option>
+					<option value="2">Llenado</option>
+      			</select>
+      		</td>
+      	</tr>
+      		
+      	@endforeach
+      	
       </tbody>
+      {{Form::close()}}
     </table>
 	
 @stop
