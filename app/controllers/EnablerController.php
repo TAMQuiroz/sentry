@@ -29,9 +29,20 @@ class EnablerController extends \BaseController {
 
     public function showReqs($formId ){
     	$reqs = Requirement::where('formID', $formId)->where('role',5)->get();
+    	foreach ($reqs as $req) {
+    		$employee = Employee::where('id',$req->employeeID)->first();
+    		break;
+    	}
+    	$dataChild = array(
+    		'employee' => $employee,
+    		'reqs' => $reqs
+    	);
 
-    	
-    	die();
+    	$dataParent = array();
+    	array_push($dataParent, $dataChild);
+
+    	$data = array('data' => $dataParent);
+    	return View::make('enabler.requirementPerson',$data);
     }
 }
 
