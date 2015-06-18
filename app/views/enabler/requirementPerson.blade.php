@@ -15,33 +15,28 @@
       <caption></caption>
       <thead>
         <tr>
-          <th>Descripción</th>
+          <th>Nombre</th>
+          <th>Justificacion</th>
           <th>Visto Bueno</th>
         </tr>
       </thead>
       <tbody>
-        <?php 
-            $i = 0;
-        ?>
       	@foreach($data as $d)
       		@foreach($d["reqs"] as $req)
       			<tr>
+              <td>{{$req['name']}}</td>
       				<td>{{$req["description"]}}</td>
       				<td>
-      					<select name = '{{$req["SAPType"]}}' > 
+      					<select name = '{{$req["id"]}}' > 
       						<option value="0" selected>No</option>
       						<option value="1" >Si</option>
       					</select>
       				</td>
-              <?php 
-                $i++;
-              ?>
       			</tr>
       		@endforeach
       	@endforeach
       </tbody>
     </table>
-  {{Form::hidden('formID', $formId)}}
   {{Form::submit('Guardar Cambios', array('class' => 'btn btn-default'))}}
   {{Form::close()}}
 @stop
