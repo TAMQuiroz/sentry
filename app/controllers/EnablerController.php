@@ -35,14 +35,35 @@ class EnablerController extends \BaseController {
     	}
     	$dataChild = array(
     		'employee' => $employee,
-    		'reqs' => $reqs
+    		'reqs' => $reqs,
     	);
 
     	$dataParent = array();
     	array_push($dataParent, $dataChild);
 
-    	$data = array('data' => $dataParent);
+    	$data = array(
+    		'data' => $dataParent,
+    		'formId' => $formId
+    	);
     	return View::make('enabler.requirementPerson',$data);
+    }
+
+    public function updateReq(){
+    	$input = Input::all();
+    	unset($input['_token']);
+    	var_dump($input);
+    	foreach ($input as $key => $value) {
+    		$reqs = Requirement::where('formID', $input['formID'])->where('role',5)->where('SAPType',$value)->first();
+    		//var_dump($value);
+    		//die();
+    		$reqs->goodCheck = $value;
+    		$reqs->status = 1;
+    		var_dump($reqs);
+    		//$reqs->save();
+    	}
+    	die();
+
+    	return Redirect::to('/enabler/home');
     }
 }
 
