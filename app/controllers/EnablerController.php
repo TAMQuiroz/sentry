@@ -56,7 +56,8 @@ class EnablerController extends \BaseController {
     		$reqs = Requirement::where('formID', $input['formID'])->where('role',5)->where('SAPType',$value)->first();
     		//var_dump($value);
     		//die();
-    		$reqs->goodCheck = $value;
+            //aqui esta lo q no salia de value
+    		//$reqs->goodCheck = $value;
     		$reqs->status = 1;
     		var_dump($reqs);
     		//$reqs->save();
