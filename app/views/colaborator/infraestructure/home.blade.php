@@ -15,10 +15,7 @@
 		  </div>
 		</div>
 	</div>
-	{{--<div>
-		<a href="{{route('business_partner.requirement.new')}}">Añadir nuevo requerimiento</a>
-	</div>--}}
-
+	
 	{{-- FILTRO --}}
 	{{Form::open(array('route' => 'colaborator.home.search'))}}
 
@@ -66,10 +63,20 @@
       			@endif
       		</td>
       		<td>
-      			<select name="{{$req->id}}">	
-      				<option value="0" selected>Recibido</option>
-					<option value="1">En proceso</option>
-					<option value="2">Llenado</option>
+      			<select name="{{$req->id}}">	}
+              @if($req->status == 0)
+                <option value="0" selected>Recibido</option>
+                <option value="1">En proceso</option>
+                <option value="2">Llenado</option>
+              @elseif($req->status == 1)
+                <option value="0">Recibido</option>
+                <option value="1" selected>En proceso</option>
+                <option value="2">Llenado</option>
+              @else
+                <option value="2" disabled>Llenado</option>
+              @endif
+      				
+    					
       			</select>
       		</td>
       	</tr>
@@ -77,7 +84,6 @@
       	@endforeach
       	
       </tbody>
-      {{Form::close()}}
     </table>
-	
+    {{Form::close()}}
 @stop
