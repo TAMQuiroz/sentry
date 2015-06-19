@@ -4,8 +4,6 @@ class BusinessPartnerController extends \BaseController {
 
 	public function home()
     {
-	        $user = Auth::user();
-
 			$forms = Forms::where('status', 0)->get();
 
 	        $dataParent = array();
@@ -45,10 +43,10 @@ class BusinessPartnerController extends \BaseController {
 	    		$area = Area::where('id',$form->areaID)->first();
 	    		$employees = Employee::all();
 	    		$employee = Employee::where('id',$form->employeeID)->first();
-	    		$positions = Position::all();
-	    		$sapR3 = Position::where('id', $form->sapR3)->first();
-	        	$sapDP = Position::where('id', $form->sapDP)->first();
-	        	$sapBW = Position::where('id', $form->sapBW)->first();
+	    		$positions = Profile::all();
+	    		$sapR3 = Profile::where('id', $form->sapR3)->first();
+	        	$sapDP = Profile::where('id', $form->sapDP)->first();
+	        	$sapBW = Profile::where('id', $form->sapBW)->first();
 
 		        $corpList = CorpList::all();
 
@@ -70,7 +68,7 @@ class BusinessPartnerController extends \BaseController {
     			$employees = Employee::all();
     			$areas = Area::all();
 		        $corpList = CorpList::all();
-		        $positions = Position::all();
+		        $positions = Profile::all();
 
 		        $data = array(
 		        	'areas'		=>		$areas,
@@ -92,17 +90,17 @@ class BusinessPartnerController extends \BaseController {
 	        	$area = Area::where('id',$input['area'])->first();
 	        	$corpList = CorpList::where('id',$input['listaCorporativa'])->first();
 	        	
-	        	$sapR3 = Position::where('id', $input['sapR3'])->first();
-	        	$sapDP = Position::where('id', $input['sapDP'])->first();
-	        	$sapBW = Position::where('id', $input['sapBW'])->first();
+	        	$sapR3 = Profile::where('id', $input['sapR3'])->first();
+	        	$sapDP = Profile::where('id', $input['sapDP'])->first();
+	        	$sapBW = Profile::where('id', $input['sapBW'])->first();
 	        }else{
 				$form = Forms::where('id',$input['formId'])->first();
 				$area = Area::where('id',$form->areaID)->first();
 				
 	        	$corpList = CorpList::where('id',$form->listaCorporativa)->first();
-	        	$sapR3 = Position::where('id', $form->sapR3)->first();
-	        	$sapDP = Position::where('id', $form->sapDP)->first();
-	        	$sapBW = Position::where('id', $form->sapBW)->first();
+	        	$sapR3 = Profile::where('id', $form->sapR3)->first();
+	        	$sapDP = Profile::where('id', $form->sapDP)->first();
+	        	$sapBW = Profile::where('id', $form->sapBW)->first();
 			}
 			$employee = Employee::where('id', $input['employee'])->first();
 			$boss = Employee::where('id', $employee->boss_id)->first();
@@ -159,9 +157,9 @@ class BusinessPartnerController extends \BaseController {
     		$employee = Employee::where('id', $form->employeeID)->first();
 	        $corpList = CorpList::where('id',$form->listaCorporativa)->first();
 	        $boss = Employee::where('id', $employee->boss_id)->first();
-        	$sapR3 = Position::where('id', $form->sapR3)->first();
-        	$sapDP = Position::where('id', $form->sapDP)->first();
-        	$sapBW = Position::where('id', $form->sapBW)->first();
+        	$sapR3 = Profile::where('id', $form->sapR3)->first();
+        	$sapDP = Profile::where('id', $form->sapDP)->first();
+        	$sapBW = Profile::where('id', $form->sapBW)->first();
 
 	        $data = array(
 	        	'area'		=>		$area,
@@ -415,7 +413,7 @@ class BusinessPartnerController extends \BaseController {
         if($forms)
         {
         	foreach ($forms as $form) {
-        		$employee = DB::table('employees')->where('id', $form->employeeID)->first();
+        		$employee = Employee::where('id', $form->employeeID)->first();
         		$dataChild = array(
 	        	'name'		=>	$employee->name,
 	        	'lastName'	=>	$employee->lastname,

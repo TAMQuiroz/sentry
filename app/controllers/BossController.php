@@ -4,9 +4,7 @@ class BossController extends \BaseController {
 
 	public function home()
     {
-    		$user = Auth::user();
-
-			$forms = Forms::where('status', 1)->where('statusEnd',0)->get();
+    		$forms = Forms::where('status', 1)->where('statusEnd',0)->get();
 
 	        $dataParent = array();
 

@@ -14,10 +14,10 @@
 		  </div>
 		</div>
 	</div>
-
 	{{Form::open(array('route' => 'business_partner.requirement.new.post'))}}
 	<div class="row">
 		<div class="panel panel-default col-md-12 ">
+			<h4>Todos los campos son obligatorios menos los señalados con un (*)</h4>
 			<div class="panel panel-default">
 				<div class="panel-heading">Empleado</div>
 				<div class="panel-body">
@@ -209,7 +209,7 @@
 			  @endif
 			  </div>
 			  <div class="panel-body">
-			  	Observacion: 
+			  	Observacion: (*)
 			  	@if(isset($form))
 			  	<textarea name="observation">{{$form->obsConecta}}</textarea>
 			  	@else
@@ -219,7 +219,7 @@
 			</div>
 
 			<div class="panel-body">
-				Conexion a impresora (Indicar el N° de sys):
+				Conexion a impresora (Indicar el N° de sys) (*):
 				@if(isset($form))
 				<input type="text" name="conection" value="{{$form->conexionImpresora}}"> 
 				@else

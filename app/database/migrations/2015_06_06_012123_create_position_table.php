@@ -12,7 +12,7 @@ class CreatePositionTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('positions', function($table){
+		Schema::create('profiles', function($table){
 			$table->increments('id');
 			$table->string('name');
 			
@@ -28,7 +28,7 @@ class CreatePositionTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('positions');
+		Schema::drop('profiles');
 	}
 
 }

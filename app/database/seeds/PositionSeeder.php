@@ -4,9 +4,9 @@ class PositionSeeder extends Seeder {
 
 	public function run()
 	{
-		Position::create(array('name'=>'Analista de composiciones'));
-		Position::create(array('name'=>'Practicante de proyectos'));
-		Position::create(array('name'=>'Gerente de Administracion'));
-		Position::create(array('name'=>'Practicante de desarrollo organizacional'));
+		Profile::create(array('name'=>'Analista de composiciones'));
+		Profile::create(array('name'=>'Practicante de proyectos'));
+		Profile::create(array('name'=>'Gerente de Administracion'));
+		Profile::create(array('name'=>'Practicante de desarrollo organizacional'));
 	}
 }
