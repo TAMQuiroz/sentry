@@ -75,4 +75,5 @@ Route::post('/colaborator/infra/home', array('as' => 'colaborator.infra.home.pos
 Route::post('/colaborator/infra/search', array('as' => 'colaborator.home.search', 'uses' => 'ColaboratorInfraController@search'));
 
 Route::get('/colaborator/admin/home', array('as' => 'colaborator.admin.home', 'uses' => 'ColaboratorAdminController@home'));
-		
+Route::post('/colaborator/admin/home', array('as' => 'colaborator.admin.home.post', 'uses' => 'ColaboratorAdminController@updateReqs'));
+Route::post('/colaborator/admin/search', array('as' => 'colaborator.admin.home.search', 'uses' => 'ColaboratorAdminController@search'));

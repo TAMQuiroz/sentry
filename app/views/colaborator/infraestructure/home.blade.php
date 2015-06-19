@@ -18,14 +18,36 @@
 	
 	{{-- FILTRO --}}
 	{{Form::open(array('route' => 'colaborator.home.search'))}}
-
 	<div class="row">
 		<select name="filter">
-			<option value="0" selected>Recibido</option>
-			<option value="1">En proceso</option>
-			<option value="2">Llenado</option>
-			<option value="3">Vencido</option>
-			<option value="4">Anulado</option>
+		@if(isset($filter))
+      @if($filter == 0)
+      <option value="0" selected>Recibido</option>
+      <option value="1">En proceso</option>
+      <option value="2">Llenado</option>
+      <option value="3">Vencido</option>
+      @elseif($filter == 1)
+      <option value="0" >Recibido</option>
+      <option value="1" selected>En proceso</option>
+      <option value="2">Llenado</option>
+      <option value="3">Vencido</option>
+      @elseif($filter == 2)
+      <option value="0" >Recibido</option>
+      <option value="1" >En proceso</option>
+      <option value="2" selected>Llenado</option>
+      <option value="3">Vencido</option>
+      @elseif($filter == 3)
+      <option value="0" >Recibido</option>
+      <option value="1" >En proceso</option>
+      <option value="2" >Llenado</option>
+      <option value="3" selected>Vencido</option>
+      @endif 
+    @else
+    <option value="0" selected>Recibido</option>
+    <option value="1">En proceso</option>
+    <option value="2">Llenado</option>
+    <option value="3">Vencido</option>
+    @endif
 		</select>
 	</div>
 	{{Form::submit('Buscar', array('class' => 'btn btn-default'))}}

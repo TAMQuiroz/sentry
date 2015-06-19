@@ -32,6 +32,7 @@ class ColaboratorInfraController extends \BaseController {
 
 		if(isset($input['filter'])){
             $requirements = Requirement::where('role', 3)->where('status', $input['filter'])->get();
+            $filter = $input['filter'];
         }
         else
         {
@@ -44,10 +45,12 @@ class ColaboratorInfraController extends \BaseController {
                 $requirement->status = $value;
                 $requirement->save();
             }
+            $filter = 0;
         }
 
         $data = array (
-            'reqs' => $requirements
+            'reqs' => $requirements,
+            'filter'    => $filter
         );
         return View::make('colaborator.infraestructure.home', $data);
     }
