@@ -7,9 +7,25 @@ class ColaboratorAdminController extends \BaseController {
 
     	$requirements = Requirement::where('role', 4)->where('status', 0)->orWhere('status', 1)->get();
 
-    	$data = array(
-    		'reqs'	=> $requirements
-    	);
+        $dataParent = array();
+
+        if($requirements)
+        {
+            foreach ($requirements as $req) {
+                $employee = Employee::where('id', $req->employeeID)->first();
+                $dataChild = array(
+                    'req'       =>  $req,
+                    'employee'  =>  $employee
+                );
+                array_push($dataParent, $dataChild);
+            }
+
+            $data = array ('data' => $dataParent);
+        }
+        else
+        {
+            $data = array ('data' => null);
+        }
 
     	return View::make('colaborator.administration.home',$data);
     }
@@ -31,6 +47,7 @@ class ColaboratorAdminController extends \BaseController {
 
     public function search()
     {
+        
     	$input = Input::all();
 
 		if(isset($input['filter']))
@@ -41,22 +58,37 @@ class ColaboratorAdminController extends \BaseController {
         else
         {
             $requirements = Requirement::where('role', 4)->where('status', 0)->get();
-            unset($input['_token']);
-            foreach($input as $key => $value){
-                            
-                $requirement = Requirement::where('id',$key)->first();
-                if($value == 1 || $value == 2) $requirement->initDate = date('Y-m-d');
-                $requirement->status = $value;
-                $requirement->save();
-            }
+            
             $filter = 0;
         }
 
-        $data = array (
-            'reqs' 		=> $requirements,
-            'filter' 	=> $filter
-        );
-        return View::make('colaborator.administration.home', $data);
+        $dataParent = array();
+
+        if($requirements)
+        {
+            foreach ($requirements as $req) {
+                $employee = Employee::where('id', $req->employeeID)->first();
+                $dataChild = array(
+                    'req'       =>  $req,
+                    'employee'  =>  $employee
+                );
+                array_push($dataParent, $dataChild);
+            }
+
+            $data = array (
+                'data'      =>     $dataParent,
+                'filter'    =>     $filter
+            );
+        }
+        else
+        {
+            $data = array (
+                'data' => null,
+                'filter'    =>     $filter
+            );
+        }
+
+        return View::make('colaborator.administration.home',$data);
     }
 
     public function checkFinish($formId)

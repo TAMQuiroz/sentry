@@ -53,7 +53,7 @@
   {{Form::submit('Buscar', array('class' => 'btn btn-default'))}}
   {{Form::close()}}
 
-	{{Form::open()}}
+	{{Form::open(array('route' => 'colaborator.admin.home.post'))}}
 	{{Form::submit('Guardar')}}
 	<table class="table table-hover">
       <caption>Requerimientos llenados recientemente:</caption>
@@ -61,7 +61,7 @@
         <tr>
           <th>ID</th>
           <th>Requerimiento
-          {{--<th>Posición</th>--}}
+          <th>Posición</th>
           <th>Fecha de vencimiento</th>
           <th>Estado actual</th>
           <th>Estado nuevo</th>
@@ -69,27 +69,28 @@
       </thead>
       <tbody>
       	
-      	@foreach($reqs as $req)
+      	@foreach($data as $d)
       	<tr>
-      		<td>{{$req->id}}</td>
-      		<td>{{$req->name}}</td>
-      		<td>{{$req->limitDate}}</td>
+      		<td>{{$d['req']->id}}</td>
+      		<td>{{$d['req']->name}}</td>
+          <td>{{$d['employee']->rolename}}</td>
+      		<td>{{$d['req']->limitDate}}</td>
       		<td>
-      			@if($req->status == 0)
+      			@if($d['req']->status == 0)
       				Recibido
-      			@elseif($req->status == 1)
+      			@elseif($d['req']->status == 1)
       				En proceso
-      			@elseif($req->status == 2)
+      			@elseif($d['req']->status == 2)
       				Llenado
       			@endif
       		</td>
       		<td>
-      		  <select name="{{$req->id}}">
-              @if($req->status == 0)
+      		  <select name="{{$d['req']->id}}">
+              @if($d['req']->status == 0)
                 <option value="0" selected>Recibido</option>
                 <option value="1">En proceso</option>
                 <option value="2">Llenado</option>
-              @elseif($req->status == 1)
+              @elseif($d['req']->status == 1)
                 <option value="0">Recibido</option>
                 <option value="1" selected>En proceso</option>
                 <option value="2">Llenado</option>
