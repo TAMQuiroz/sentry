@@ -23,6 +23,7 @@ class ColaboratorAdminController extends \BaseController {
             if($value == 1 || $value == 2) $requirement->initDate = date('Y-m-d');
 			$requirement->status = $value;
 			$requirement->save();
+            $this->checkFinish($requirement->formID);
     	}
     		
     	return Redirect::to('/colaborator/admin/home');
@@ -56,5 +57,23 @@ class ColaboratorAdminController extends \BaseController {
             'filter' 	=> $filter
         );
         return View::make('colaborator.administration.home', $data);
+    }
+
+    public function checkFinish($formId)
+    {
+        $check = 1;
+        $reqs = Requirement::where('formID', $formId)->get();
+        foreach ($reqs as $req) {
+            if ($req->status != 2)
+            {
+                $check = 0;
+                break;
+            }
+        }
+        if($check == 1){
+            $form = Forms::where('id',$formId)->first();
+            $form->statusEnd = 1;
+            $form->save();
+        }
     }
 }

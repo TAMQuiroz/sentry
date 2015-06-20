@@ -56,7 +56,7 @@ class EnablerController extends \BaseController {
     
     }
 
-    public function showReqs($formId )
+    public function showReqs($formId)
     {
     	$reqs = Requirement::where('formID', $formId)->where('role',5)->get();
     	foreach ($reqs as $req) {
@@ -90,8 +90,30 @@ class EnablerController extends \BaseController {
     		$req->status = 2;
     		$req->initDate = date('Y-m-d');
     		$req->save();
+            $this->checkFinish($req->formID);
     	}
     	return Redirect::to('/enabler/home');
+    }
+
+    public function checkFinish($formId)
+    {
+        $check = 1;
+        $reqs = Requirement::where('formID', $formId)->get();
+        foreach ($reqs as $req) {
+            var_dump("Status".$req->status." check ".$check);
+            if ($req->status != 2)
+            {
+                var_dump("entro a fallo");
+                $check = 0;
+                break;
+            }
+        }
+        if($check == 1){
+
+            $form = Forms::where('id',$formId)->first();
+            $form->statusEnd = 1;
+            $form->save();
+        }
     }
 }
 

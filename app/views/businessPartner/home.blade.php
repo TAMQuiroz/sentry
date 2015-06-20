@@ -21,9 +21,26 @@
 	{{Form::open(array('route' => 'business_partner.home.search'))}}
 	<div class="row">
 	<select name="filter">
-		<option value="0" selected>Borrador</option>
-		<option value="1">Enviado</option>
-		<option value="2">Terminado</option>
+		@if(isset($filter))
+			@if($filter == 0)
+			<option value="0" selected>Borrador</option>
+			<option value="1">Enviado</option>
+			<option value="2">Terminado</option>
+			@elseif($filter == 1)
+			<option value="0" >Borrador</option>
+			<option value="1" selected>Enviado</option>
+			<option value="2">Terminado</option>
+			@elseif($filter == 2)
+			<option value="0" >Borrador</option>
+			<option value="1">Enviado</option>
+			<option value="2" selected>Terminado</option>
+			@endif
+		@else
+			<option value="0" selected>Borrador</option>
+			<option value="1">Enviado</option>
+			<option value="2">Terminado</option>
+		@endif
+		
 	</select>
 	{{Form::submit('Buscar', array('class' => 'btn btn-default'))}}
 	{{Form::close()}}

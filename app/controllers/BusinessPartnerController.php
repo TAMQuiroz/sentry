@@ -405,9 +405,12 @@ class BusinessPartnerController extends \BaseController {
     public function search(){
     	$input = Input::all();
 
-
-		$forms = Forms::where('status', $input['filter'])->get();
-
+        if($input['filter']==1)
+            $forms = Forms::where('status', $input['filter'])->where('statusEnd',0)->get();
+        elseif($input['filter']==2)
+            $forms = Forms::where('status', 1)->where('statusEnd',1)->get();
+        else
+            $forms = Forms::where('status', 0)->get();
         $dataParent = array();
 
         if($forms)
@@ -426,11 +429,19 @@ class BusinessPartnerController extends \BaseController {
         	}
 	        
 
-			$data = array ('data' => $dataParent);
+			$data = array (
+                'data'      => $dataParent,
+                'filter'    => $input['filter']
+            );
+
 		}
 		else
 		{
-			$data = array ('data' => null);
+			$data = array (
+                'data'      => null,
+                'filter'    => $input['filter']
+            );
+
 		}
         return View::make('businessPartner.home', $data);
     }
