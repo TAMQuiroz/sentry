@@ -85,7 +85,6 @@ class EnablerController extends \BaseController {
     	
     	foreach ($input as $key => $value) {
     		$req = Requirement::where('id', $key)->first();
-    		//aqui esta lo q no salia de value
     		$req->goodCheck = $value;
     		$req->status = 2;
     		$req->initDate = date('Y-m-d');
